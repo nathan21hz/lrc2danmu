@@ -27,11 +27,10 @@ function sleep(numberMillis) {    
 }
 
 lrc = ""
+offset = 0  //时间偏移量（毫秒）
 
 aid = window.location.href.match(/(?<=av)([0-9]*)/)[0]
 page = window.location.href.match(/(?<=p=)([0-9]*)/) ? window.location.href.match(/(?<=p=)([0-9]*)/)[0] : 1
-offset = 0  //时间偏移量（毫秒）
-
 $.ajax({
     url : 'https://api.bilibili.com/x/web-interface/view',
     type : 'GET',
@@ -76,5 +75,6 @@ $.ajax({
                 crossDomain: true,
             })
         }
+        console.log("全部发送完毕")
     }
 })
