@@ -26,9 +26,10 @@ function sleep(numberMillis) {    
     } 
 }
 
+lrc = ""
 
 aid = window.location.href.match(/(?<=av)([0-9]*)/)[0]
-lrc = ""    //lrc格式歌词，使用\n换行，一句一行
+page = window.location.href.match(/(?<=p=)([0-9]*)/) ? window.location.href.match(/(?<=p=)([0-9]*)/)[0] : 1
 offset = 0  //时间偏移量（毫秒）
 
 $.ajax({
@@ -36,9 +37,11 @@ $.ajax({
     type : 'GET',
     data : {aid : aid},
     success: function(response){
-        var oid = response.data.cid
+        var oid = response.data.pages[parseInt(page)-1].cid
         var csrf = getCookie('bili_jct')
         var rnd = new Date().getTime().toString() + "0000"
+
+        console.log(oid,aid)
 
         lines = lrc.split("\n")
         for (l in lines){
@@ -73,6 +76,5 @@ $.ajax({
                 crossDomain: true,
             })
         }
-
     }
 })
